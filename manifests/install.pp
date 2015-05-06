@@ -41,7 +41,9 @@ class uchiwa::install {
   package { $uchiwa::package_name:
     ensure  => $uchiwa::version,
     require => $repo_require,
-    notify  => Service['uchiwa'],
   }
 
+  if($::uchiwa::manage_services == true){
+    Package[$uchiwa::package_name] ~> Service['uchiwa']
+  }
 }
